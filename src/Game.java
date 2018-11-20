@@ -55,5 +55,11 @@ public class Game {
                 valid = board.runTurn(move);
             }
         }
+        if (!board.isGameAcive()){
+            displayBoard();
+            System.out.println("Game is over!");
+            System.out.println("Final Score is:");
+            displayScore();
+        }
     }
 }
