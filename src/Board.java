@@ -309,21 +309,21 @@ public class Board {
     public void forceMove(String move, int player){
         int column = -1;
         String[] splitMove = move.split("");
-        if (splitMove[0].equals("A")){
+        if (splitMove[0].equals("A") || splitMove[0].equals("a")){
             column = 0;
-        } else if (splitMove[0].equals("B")){
+        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")){
             column = 1;
-        } else if (splitMove[0].equals("C")){
+        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")){
             column = 2;
-        } else if (splitMove[0].equals("D")){
+        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")){
             column = 3;
-        } else if (splitMove[0].equals("E")){
+        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")){
             column = 4;
-        } else if (splitMove[0].equals("F")){
+        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")){
             column = 5;
-        } else if (splitMove[0].equals("G")){
+        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")){
             column = 6;
-        } else if (splitMove[0].equals("H")){
+        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")){
             column = 7;
         }
         if (column < 0 || player < 0 || player > 2){
@@ -390,21 +390,21 @@ public class Board {
         ArrayList<String> validMoves = validMoves(turn);
         int column = -1;
         String[] splitMove = move.split("");
-        if (splitMove[0].equals("A")){
+        if (splitMove[0].equals("A") || splitMove[0].equals("a")){
             column = 0;
-        } else if (splitMove[0].equals("B")){
+        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")){
             column = 1;
-        } else if (splitMove[0].equals("C")){
+        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")){
             column = 2;
-        } else if (splitMove[0].equals("D")){
+        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")){
             column = 3;
-        } else if (splitMove[0].equals("E")){
+        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")){
             column = 4;
-        } else if (splitMove[0].equals("F")){
+        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")){
             column = 5;
-        } else if (splitMove[0].equals("G")){
+        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")){
             column = 6;
-        } else if (splitMove[0].equals("H")){
+        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")){
             column = 7;
         }
         String testMove = (splitMove[1] + Integer.toString(column));
