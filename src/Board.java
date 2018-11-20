@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Board {
     private int[][] grid = new int[8][8]; //Saves Array
     private Player player1 = new Player(); //Creates player 1
@@ -52,95 +54,237 @@ public class Board {
     }
 
     /**
+     * Gives a ArrayList of valid moves the selected player can make
      *
-     * @param player either player 1 or 2
-     * @return if the player's turn is valid or not
+     * @param player Select player (Either player 1 or 2)
+     * @return An ArrayList of Strings of what moves are valid
      */
-    public boolean validturn(int player){
-        int validMoves = 0;
-        for (int row = 0; row < grid.length; row++){
-            for (int column = 0; column < grid[row].length; column++){
-                int invalid = 0;
+    public ArrayList<String> validMoves(int player) {
+        ArrayList<String> validMoves = new ArrayList<>();
+        int opponent = 0;
+        if (player == 1) {
+            opponent = 2;
+        } else if (player == 2) {
+            opponent = 1;
+        } else {
+            System.out.println("ERROR IN SELECTED PLAYER!");
+            System.exit(1);
+        }
+        for (int row = 0; row < grid.length; row++) {
+            for (int column = 0; column < grid[row].length; column++) {
+                int valid = 0;
                 int testRow;
                 int testColumn;
-                if (grid[row][column] == 0){
+                if (grid[row][column] == 0) {
                     //check top left
                     testRow = row - 1;
                     testColumn = column - 1;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-                        if (grid[testRow][testColumn] == player){
-                            invalid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+                        if (grid[testRow][testColumn] == opponent) {
+                            valid++;
                         }
                     }
                     //Check top right
                     testRow = row - 1;
                     testColumn = column + 1;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-                        if (grid[testRow][testColumn] == player){
-                            invalid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+                        if (grid[testRow][testColumn] == opponent) {
+                            valid++;
                         }
                     }
                     // Check bottom left
                     testRow = row + 1;
                     testColumn = column - 1;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-                        if (grid[testRow][testColumn] == player){
-                            invalid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+                        if (grid[testRow][testColumn] == opponent) {
+                            valid++;
                         }
                     }
                     //Check bottom right
                     testRow = row + 1;
                     testColumn = column + 1;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-                        if (grid[testRow][testColumn] == player){
-                            invalid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+                        if (grid[testRow][testColumn] == opponent) {
+                            valid++;
                         }
                     }
                     //Check top
                     testRow = row - 1;
                     testColumn = column;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-                        if (grid[testRow][testColumn] == player){
-                            invalid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+                        if (grid[testRow][testColumn] == opponent) {
+                            valid++;
                         }
                     }
                     //Check bottom
                     testRow = row + 1;
                     testColumn = column;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-                        if (grid[testRow][testColumn] == player){
-                            invalid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+                        if (grid[testRow][testColumn] == opponent) {
+                            valid++;
                         }
                     }
                     //Check Left
                     testRow = row;
                     testColumn = column - 1;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-                        if (grid[testRow][testColumn] == player){
-                            invalid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+                        if (grid[testRow][testColumn] == opponent) {
+                            valid++;
                         }
                     }
                     //Check Right
                     testRow = row;
                     testColumn = column + 1;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-                        if (grid[testRow][testColumn] == player){
-                            invalid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+                        if (grid[testRow][testColumn] == opponent) {
+                            valid++;
                         }
                     }
-                    //If there are no invalid square found, then increment by one
-                    if (invalid == 0){
-                        validMoves++;
+                    //If there are valid square found, then increment by one
+                    if (valid > 0) {
+                        if (ownValid(player, column, row) == true){
+                            validMoves.add(Integer.toString(row)+Integer.toString(column));
+                        }
                     }
                 }
             }
         }
-        if (validMoves == 0){
-            return false;
-        }else if (validMoves > 0){
-            System.out.println("No. of valid moves: "+ validMoves);
+        return validMoves;
+    }
+
+    /**
+     * Checks if the player has any valid counters that can be flipped at the location given.
+     *
+     * @param player The player to be checked
+     * @param X The Column of the spot being checked on the grid
+     * @param Y The Row of the spot being checked on the grid
+     * @return True/False of if the the square has any counters to flip
+     */
+    private boolean ownValid(int player, int X, int Y){
+        int totalOwn = 0;
+        int testRow;
+        int testColumn;
+        int ownPiece;// This is used to check make sure then is one piece of the oppents piece between their piece and their spot being checked
+        //check top left
+        testRow = Y + 1;
+        testColumn = X - 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow++;
+            testColumn--;
+            ownPiece++;
+        }
+        //check top right
+        testRow = Y + 1;
+        testColumn = X + 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow++;
+            testColumn--;
+            ownPiece++;
+        }
+        //check bottom left
+        testRow = Y - 1;
+        testColumn = X - 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow--;
+            testColumn++;
+            ownPiece++;
+        }
+        //check top
+        testRow = Y + 1;
+        testColumn = X;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow++;
+            ownPiece++;
+        }
+        //check down
+        testRow = Y - 1;
+        testColumn = X;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow--;
+            ownPiece++;
+        }
+        //check left
+        testRow = Y;
+        testColumn = X - 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testColumn--;
+            ownPiece++;
+        }
+        //check right
+        testRow = Y;
+        testColumn = X + 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testColumn++;
+            ownPiece++;
+        }
+        if (totalOwn > 0){
             return true;
-        }else{
+        }else if (totalOwn == 0){
+            return false;
+        }else {
             return false;
         }
     }

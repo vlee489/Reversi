@@ -4,5 +4,6 @@ public class Menu {
         Game game = new Game();
         game.displayBoard();
         game.checkMoves();
+        game.displayBoard();
     }
 }

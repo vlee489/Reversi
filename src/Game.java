@@ -7,10 +7,10 @@ public class Game {
     public void displayBoard(){
         int[][] arrayTemp = board.getGrid();
         String linePrint;
+        System.out.println("   0  1  2  3  4  5  6  7");
         System.out.println("   A  B  C  D  E  F  G  H");
         for (int i = 0; i < arrayTemp.length; i++){
-            int lineNo = i + 1;
-            linePrint = lineNo + "  ";
+            linePrint = i + "  ";
             for (int z = 0; z < arrayTemp[i].length; z++){
                 if (arrayTemp[i][z] == 0){
                     linePrint = (linePrint + "▢  ");
@@ -25,8 +25,8 @@ public class Game {
     }
 
     public void checkMoves(){
-        board.validturn(1);
-        board.validturn(2);
+        System.out.println("Player 1 valid moves: " + board.validMoves(1));
+        System.out.println("Player 2 valid moves: " + board.validMoves(2));
     }
 
 }
