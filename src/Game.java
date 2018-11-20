@@ -43,6 +43,7 @@ public class Game {
         while (board.isGameAcive()){
             displayScore();
             displayBoard();
+            checkMoves();
             Scanner ss = new Scanner(System.in);
             System.out.println("May player " + board.getTurn() + " enter their move: ");
             String move = ss.nextLine();

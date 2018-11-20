@@ -10,6 +10,7 @@ public class Board {
 
     /**
      * accessor for gameActive
+     *
      * @return if the game is active as boolean
      */
     public boolean isGameAcive() {
@@ -19,7 +20,7 @@ public class Board {
     /**
      * Constructor method
      */
-    public Board(){
+    public Board() {
         //sets Player ones initial counters
         grid[3][3] = 1;
         grid[4][4] = 1;
@@ -35,6 +36,7 @@ public class Board {
 
     /**
      * get the turn
+     *
      * @return returns who's turn it is
      */
     public int getTurn() {
@@ -43,6 +45,7 @@ public class Board {
 
     /**
      * returns Board 2d array
+     *
      * @return 2d array of Board
      */
     public int[][] getGrid() {
@@ -51,6 +54,7 @@ public class Board {
 
     /**
      * set the grid 2d array
+     *
      * @param grid The grid in a 2d 8x8 array
      */
     public void setGrid(int[][] grid) {
@@ -59,6 +63,7 @@ public class Board {
 
     /**
      * Set which Player's turn it is
+     *
      * @param turn either Player 1 or 2
      */
     public void setTurn(int turn) {
@@ -154,8 +159,8 @@ public class Board {
                     }
                     //If there are valid square found, then increment by one
                     if (valid > 0) {
-                        if (ownValid(player, column, row) == true){
-                            validMoves.add(Integer.toString(row)+Integer.toString(column));
+                        if (ownValid(player, column, row) == true) {
+                            validMoves.add(Integer.toString(row) + Integer.toString(column));
                         }
                     }
                 }
@@ -168,11 +173,11 @@ public class Board {
      * Checks if the player has any valid counters that can be flipped at the location given.
      *
      * @param player The player to be checked
-     * @param X The Column of the spot being checked on the grid
-     * @param Y The Row of the spot being checked on the grid
+     * @param X      The Column of the spot being checked on the grid
+     * @param Y      The Row of the spot being checked on the grid
      * @return True/False of if the the square has any counters to flip
      */
-    private boolean ownValid(int player, int X, int Y){
+    private boolean ownValid(int player, int X, int Y) {
         int totalOwn = 0;
         int testRow;
         int testColumn;
@@ -181,12 +186,12 @@ public class Board {
         testRow = Y - 1;
         testColumn = X - 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 totalOwn++;
                 break;
             }
@@ -198,12 +203,12 @@ public class Board {
         testRow = Y - 1;
         testColumn = X + 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 totalOwn++;
                 break;
             }
@@ -215,12 +220,12 @@ public class Board {
         testRow = Y + 1;
         testColumn = X - 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 totalOwn++;
                 break;
             }
@@ -232,12 +237,12 @@ public class Board {
         testRow = Y + 1;
         testColumn = X + 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 totalOwn++;
                 break;
             }
@@ -249,12 +254,12 @@ public class Board {
         testRow = Y + 1;
         testColumn = X;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 totalOwn++;
                 break;
             }
@@ -265,12 +270,12 @@ public class Board {
         testRow = Y - 1;
         testColumn = X;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 totalOwn++;
                 break;
             }
@@ -281,12 +286,12 @@ public class Board {
         testRow = Y;
         testColumn = X - 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 totalOwn++;
                 break;
             }
@@ -297,55 +302,56 @@ public class Board {
         testRow = Y;
         testColumn = X + 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 totalOwn++;
                 break;
             }
             testColumn++;
             ownPiece++;
         }
-        if (totalOwn > 0){
+        if (totalOwn > 0) {
             return true;
-        }else if (totalOwn == 0){
+        } else if (totalOwn == 0) {
             return false;
-        }else {
+        } else {
             return false;
         }
     }
 
     /**
      * Force add a piece to the board
-     * @param move position to place piece on to
+     *
+     * @param move   position to place piece on to
      * @param player either player 1 or 2
      */
-    public void forceMove(String move, int player){
+    public void forceMove(String move, int player) {
         int column = -1;
         String[] splitMove = move.split("");
-        if (splitMove[0].equals("A") || splitMove[0].equals("a")){
+        if (splitMove[0].equals("A") || splitMove[0].equals("a")) {
             column = 0;
-        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")){
+        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")) {
             column = 1;
-        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")){
+        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")) {
             column = 2;
-        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")){
+        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")) {
             column = 3;
-        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")){
+        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")) {
             column = 4;
-        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")){
+        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")) {
             column = 5;
-        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")){
+        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")) {
             column = 6;
-        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")){
+        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")) {
             column = 7;
         }
-        if (column < 0 || player < 0 || player > 2){
+        if (column < 0 || player < 0 || player > 2) {
             System.out.println("Unable to add piece");
-        }else{
+        } else {
             int row = Integer.parseInt(splitMove[1]);
             grid[row][column] = player;
         }
@@ -354,7 +360,7 @@ public class Board {
     /**
      * Calculated and updates the score for each player
      */
-    public void calculateScore(){
+    public void calculateScore() {
         int player1Score = 0;
         int player2Score = 0;
         //Get the total counter count/score for each player
@@ -362,7 +368,7 @@ public class Board {
             for (int column = 0; column < grid[row].length; column++) {
                 if (grid[row][column] == 1) {
                     player1Score++;
-                }else if (grid[row][column] == 2){
+                } else if (grid[row][column] == 2) {
                     player2Score++;
                 }
             }
@@ -384,21 +390,21 @@ public class Board {
         // The following checks if the next player has any valid moves and then switches to the if it's their turn.
         ArrayList<String> player2Moves = validMoves(2);
         ArrayList<String> player1Moves = validMoves(1);
-        if (player1Moves.isEmpty() && player2Moves.isEmpty()){
+        if (player1Moves.isEmpty() && player2Moves.isEmpty()) {
             //If there is no valid moves then the game ends
             gameAcive = false;
-        } else if (turn == 1){
+        } else if (turn == 1) {
             player1.incrementMoves();
-            if (!player2Moves.isEmpty()){
+            if (!player2Moves.isEmpty()) {
                 turn = 2;
-            }else {
+            } else {
                 turn = 1;
             }
-        } else if (turn == 2){
+        } else if (turn == 2) {
             player2.incrementMoves();
-            if (!player1Moves.isEmpty()){
+            if (!player1Moves.isEmpty()) {
                 turn = 1;
-            }else {
+            } else {
                 turn = 2;
             }
         }
@@ -406,48 +412,49 @@ public class Board {
 
     /**
      * Allows for moves to be made on the board.
+     *
      * @param move the move being made by the player
      * @return if the move was valid returns True, else returns false
      */
-    public boolean runTurn(String move){
+    public boolean runTurn(String move) {
         ArrayList<String> validMoves = validMoves(turn);
         int column = -1;
         String[] splitMove = move.split("");
-        if (splitMove[0].equals("A") || splitMove[0].equals("a")){
+        if (splitMove[0].equals("A") || splitMove[0].equals("a")) {
             column = 0;
-        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")){
+        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")) {
             column = 1;
-        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")){
+        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")) {
             column = 2;
-        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")){
+        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")) {
             column = 3;
-        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")){
+        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")) {
             column = 4;
-        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")){
+        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")) {
             column = 5;
-        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")){
+        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")) {
             column = 6;
-        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")){
+        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")) {
             column = 7;
         } else {
             return false; //it returns a false when an invalid option if given
         }
         //Following if statement is to check if the row number given if within range of grid.
-        if (Integer.parseInt(splitMove[1]) > 8 || Integer.parseInt(splitMove[1]) < 0){
+        if (Integer.parseInt(splitMove[1]) > 8 || Integer.parseInt(splitMove[1]) < 0) {
             return false;
         }
         String testMove = (splitMove[1] + Integer.toString(column));
-        if (validMoves.contains(testMove)){
+        if (validMoves.contains(testMove)) {
             grid[Integer.parseInt(splitMove[1])][column] = turn;
-            //flipcounters method here!!
+            flipCounters(turn, column, Integer.parseInt(splitMove[1]));
             endTurn();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public void flipCounters(int player, int X, int Y){
+    public void flipCounters(int player, int X, int Y) {
         int totalOwn = 0;
         int testRow;
         int testColumn;
@@ -455,15 +462,61 @@ public class Board {
         int flipColumn;
         int ownPiece;// This is used to check make sure then is one piece of the oppents piece between their piece and their spot being checked
         //check top left
+        testRow = Y - 1;
+        testColumn = X - 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
+                break;
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
+                break;
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
+                flipRow = Y - 1;
+                flipColumn = X - 1;
+                while (grid[flipRow][flipColumn] != player){
+                    grid[flipRow][flipColumn] = player;
+                    flipRow--;
+                    flipColumn--;
+                }
+                break;
+            }
+            testRow--;
+            testColumn--;
+            ownPiece++;
+        }
+        //check top right
+        testRow = Y - 1;
+        testColumn = X + 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
+                break;
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
+                break;
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
+                flipRow = Y - 1;
+                flipColumn = X + 1;
+                while (grid[flipRow][flipColumn] != player){
+                    grid[flipRow][flipColumn] = player;
+                    flipRow--;
+                    flipColumn++;
+                }
+                break;
+            }
+            testRow--;
+            testColumn++;
+            ownPiece++;
+        }
+        //check bottom left
         testRow = Y + 1;
         testColumn = X - 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 flipRow = Y + 1;
                 flipColumn = X - 1;
                 while (grid[flipRow][flipColumn] != player){
@@ -477,43 +530,26 @@ public class Board {
             testColumn--;
             ownPiece++;
         }
-        //check top right
+        //Check bottom right
         testRow = Y + 1;
         testColumn = X + 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
                 flipRow = Y + 1;
                 flipColumn = X + 1;
                 while (grid[flipRow][flipColumn] != player){
                     grid[flipRow][flipColumn] = player;
                     flipRow++;
-                    flipColumn--;
+                    flipColumn++;
                 }
                 break;
             }
             testRow++;
-            testColumn--;
-            ownPiece++;
-        }
-        //check bottom left
-        testRow = Y - 1;
-        testColumn = X - 1;
-        ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
-                break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
-                break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
-                totalOwn++;
-                break;
-            }
-            testRow--;
             testColumn++;
             ownPiece++;
         }
@@ -521,13 +557,18 @@ public class Board {
         testRow = Y + 1;
         testColumn = X;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
-                totalOwn++;
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
+                flipRow = Y + 1;
+                flipColumn = X;
+                while (grid[flipRow][flipColumn] != player){
+                    grid[flipRow][flipColumn] = player;
+                    flipRow++;
+                }
                 break;
             }
             testRow++;
@@ -537,13 +578,18 @@ public class Board {
         testRow = Y - 1;
         testColumn = X;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
-                totalOwn++;
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
+                flipRow = Y - 1;
+                flipColumn = X;
+                while (grid[flipRow][flipColumn] != player){
+                    grid[flipRow][flipColumn] = player;
+                    flipRow--;
+                }
                 break;
             }
             testRow--;
@@ -553,13 +599,18 @@ public class Board {
         testRow = Y;
         testColumn = X - 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
-                totalOwn++;
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
+                flipRow = Y;
+                flipColumn = X - 1;
+                while (grid[flipRow][flipColumn] != player){
+                    grid[flipRow][flipColumn] = player;
+                    flipColumn--;
+                }
                 break;
             }
             testColumn--;
@@ -569,28 +620,22 @@ public class Board {
         testRow = Y;
         testColumn = X + 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+            if (grid[testRow][testColumn] == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+            } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
                 break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
-                totalOwn++;
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
+                flipRow = Y;
+                flipColumn = X + 1;
+                while (grid[flipRow][flipColumn] != player){
+                    grid[flipRow][flipColumn] = player;
+                    flipColumn++;
+                }
                 break;
             }
             testColumn++;
             ownPiece++;
         }
     }
-
 }
-
-/**
-flipRow = Y + 1;
-        flipColumn = X - 1;
-        while (grid[flipRow][flipColumn] != player){
-        grid[flipRow][flipColumn] = player;
-        flipRow++;
-        flipColumn--;
-        }
- */
