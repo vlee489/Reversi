@@ -5,7 +5,8 @@ public class Board {
     private Player player1 = new Player(); //Creates player 1
     private Player player2 = new Player(); //Creates player 2
     private int turn; //Stores whos turn it is.
-    private int turnsTaken; //
+    private int turnsTaken; //the number of turns taken in total
+    private boolean gameAcive; //Turns false when the game ends
 
     /**
      * Constructor method
@@ -19,6 +20,7 @@ public class Board {
         grid[3][4] = 2;
         //sets turn to Player one
         turn = 1;
+        gameAcive = true;
     }
 
     /**
@@ -314,15 +316,55 @@ public class Board {
         } else if (splitMove[0].equals("H")){
             column = 7;
         }
-        if (player != 1 || player != 2 || column < 0){
+        if (column < 0 || player < 0 || player > 2){
             System.out.println("Unable to add piece");
         }else{
             int row = Integer.parseInt(splitMove[1]);
-            grid[column][row] = player;
+            grid[row][column] = player;
         }
     }
 
-    public void tests(){
+    /**
+     * This method has to be run at the end of a players turn
+     * It's jon is to
+     * - Calculate the player's score
+     * - Switch tunr to the next player
+     * - check if the next player has a valid move
+     */
+    public void endTurn() {
+        int player1Score = 0;
+        int player2Score = 0;
+        //Get the total counter count/score for each player
+        for (int row = 0; row < grid.length; row++) {
+            for (int column = 0; column < grid[row].length; column++) {
+                if (grid[row][column] == 1) {
+                    player1Score++;
+                }else if (grid[row][column] == 2){
+                    player2Score++;
+                }
+            }
+        }
+        player1.setScore(player1Score);
+        player2.setScore(player2Score);
+        // The following checks if the next player has any valid mmoves and then switches to the if it's their turn.
+        ArrayList<String> player2Moves = validMoves(2);
+        ArrayList<String> player1Moves = validMoves(1);
+        if (player1Moves.isEmpty() == true && player2Moves.isEmpty() == true){
+            //If there is no valid moves then the game ends
+            gameAcive = false;
+        } else if (turn == 1){
+            if (player2Moves.isEmpty() == false){
+                turn = 2;
+            }else {
+                turn = 1;
+            }
+        } else if (turn == 2){
+            if (player1Moves.isEmpty() == false){
+                turn = 1;
+            }else {
+                turn = 2;
+            }
+        }
     }
 
 }
