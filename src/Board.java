@@ -386,6 +386,11 @@ public class Board {
         }
     }
 
+    /**
+     * Allows for moves to be made on the board.
+     * @param move the move being made by the player
+     * @return if the move was valid returns True, else returns false
+     */
     public boolean runTurn(String move){
         ArrayList<String> validMoves = validMoves(turn);
         int column = -1;
@@ -406,6 +411,12 @@ public class Board {
             column = 6;
         } else if (splitMove[0].equals("H") || splitMove[0].equals("h")){
             column = 7;
+        } else {
+            return false; //it returns a false when an invalid option if given
+        }
+        //Following if statment is to check if the row number given if within range of grid.
+        if (Integer.parseInt(splitMove[1]) > 8 || Integer.parseInt(splitMove[1]) < 0){
+            return false;
         }
         String testMove = (splitMove[1] + Integer.toString(column));
         if (validMoves.contains(testMove)){
