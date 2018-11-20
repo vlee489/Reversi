@@ -178,40 +178,6 @@ public class Board {
         int testColumn;
         int ownPiece;// This is used to check make sure then is one piece of the oppents piece between their piece and their spot being checked
         //check top left
-        testRow = Y + 1;
-        testColumn = X - 1;
-        ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
-                break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
-                break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
-                totalOwn++;
-                break;
-            }
-            testRow++;
-            testColumn--;
-            ownPiece++;
-        }
-        //check top right
-        testRow = Y + 1;
-        testColumn = X + 1;
-        ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
-            if (grid[testRow][testColumn] == 0){
-                break;
-            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
-                break;
-            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
-                totalOwn++;
-                break;
-            }
-            testRow++;
-            testColumn--;
-            ownPiece++;
-        }
-        //check bottom left
         testRow = Y - 1;
         testColumn = X - 1;
         ownPiece = 0;
@@ -225,6 +191,57 @@ public class Board {
                 break;
             }
             testRow--;
+            testColumn--;
+            ownPiece++;
+        }
+        //check top right
+        testRow = Y - 1;
+        testColumn = X + 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow--;
+            testColumn++;
+            ownPiece++;
+        }
+        //check bottom left
+        testRow = Y + 1;
+        testColumn = X - 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow++;
+            testColumn--;
+            ownPiece++;
+        }
+        //Check bottom right
+        testRow = Y + 1;
+        testColumn = X + 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow++;
             testColumn++;
             ownPiece++;
         }
@@ -430,4 +447,150 @@ public class Board {
         }
     }
 
+    public void flipCounters(int player, int X, int Y){
+        int totalOwn = 0;
+        int testRow;
+        int testColumn;
+        int flipRow;
+        int flipColumn;
+        int ownPiece;// This is used to check make sure then is one piece of the oppents piece between their piece and their spot being checked
+        //check top left
+        testRow = Y + 1;
+        testColumn = X - 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                flipRow = Y + 1;
+                flipColumn = X - 1;
+                while (grid[flipRow][flipColumn] != player){
+                    grid[flipRow][flipColumn] = player;
+                    flipRow++;
+                    flipColumn--;
+                }
+                break;
+            }
+            testRow++;
+            testColumn--;
+            ownPiece++;
+        }
+        //check top right
+        testRow = Y + 1;
+        testColumn = X + 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                flipRow = Y + 1;
+                flipColumn = X + 1;
+                while (grid[flipRow][flipColumn] != player){
+                    grid[flipRow][flipColumn] = player;
+                    flipRow++;
+                    flipColumn--;
+                }
+                break;
+            }
+            testRow++;
+            testColumn--;
+            ownPiece++;
+        }
+        //check bottom left
+        testRow = Y - 1;
+        testColumn = X - 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow--;
+            testColumn++;
+            ownPiece++;
+        }
+        //check top
+        testRow = Y + 1;
+        testColumn = X;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow++;
+            ownPiece++;
+        }
+        //check down
+        testRow = Y - 1;
+        testColumn = X;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testRow--;
+            ownPiece++;
+        }
+        //check left
+        testRow = Y;
+        testColumn = X - 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testColumn--;
+            ownPiece++;
+        }
+        //check right
+        testRow = Y;
+        testColumn = X + 1;
+        ownPiece = 0;
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8){
+            if (grid[testRow][testColumn] == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece == 0){
+                break;
+            }else if (grid[testRow][testColumn] == player && ownPiece > 0){
+                totalOwn++;
+                break;
+            }
+            testColumn++;
+            ownPiece++;
+        }
+    }
+
 }
+
+/**
+flipRow = Y + 1;
+        flipColumn = X - 1;
+        while (grid[flipRow][flipColumn] != player){
+        grid[flipRow][flipColumn] = player;
+        flipRow++;
+        flipColumn--;
+        }
+ */
