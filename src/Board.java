@@ -5,7 +5,7 @@ public class Board {
     public Player player1 = new Player(); //Creates player 1
     public Player player2 = new Player(); //Creates player 2
     private int turn; //Stores whos turn it is.
-    private int turnsTaken; //the number of turns taken in total
+    private int turnsTaken = 0; //the number of turns taken in total
     private boolean gameAcive; //Turns false when the game ends
 
     /**
@@ -358,27 +358,28 @@ public class Board {
      * This method has to be run at the end of a players turn
      * It's jon is to
      * - Calculate the player's score
-     * - Switch tunr to the next player
+     * - Switch turn to the next player
      * - check if the next player has a valid move
      */
     public void endTurn() {
+        turnsTaken++;
         calculateScore();
-        // The following checks if the next player has any valid mmoves and then switches to the if it's their turn.
+        // The following checks if the next player has any valid moves and then switches to the if it's their turn.
         ArrayList<String> player2Moves = validMoves(2);
         ArrayList<String> player1Moves = validMoves(1);
-        if (player1Moves.isEmpty() == true && player2Moves.isEmpty() == true){
+        if (player1Moves.isEmpty() && player2Moves.isEmpty()){
             //If there is no valid moves then the game ends
             gameAcive = false;
         } else if (turn == 1){
             player1.incrementMoves();
-            if (player2Moves.isEmpty() == false){
+            if (!player2Moves.isEmpty()){
                 turn = 2;
             }else {
                 turn = 1;
             }
         } else if (turn == 2){
             player2.incrementMoves();
-            if (player1Moves.isEmpty() == false){
+            if (!player1Moves.isEmpty()){
                 turn = 1;
             }else {
                 turn = 2;
@@ -414,7 +415,7 @@ public class Board {
         } else {
             return false; //it returns a false when an invalid option if given
         }
-        //Following if statment is to check if the row number given if within range of grid.
+        //Following if statement is to check if the row number given if within range of grid.
         if (Integer.parseInt(splitMove[1]) > 8 || Integer.parseInt(splitMove[1]) < 0){
             return false;
         }
