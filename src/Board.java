@@ -2,11 +2,19 @@ import java.util.ArrayList;
 
 public class Board {
     private int[][] grid = new int[8][8]; //Saves Array
-    private Player player1 = new Player(); //Creates player 1
-    private Player player2 = new Player(); //Creates player 2
+    public Player player1 = new Player(); //Creates player 1
+    public Player player2 = new Player(); //Creates player 2
     private int turn; //Stores whos turn it is.
     private int turnsTaken; //the number of turns taken in total
     private boolean gameAcive; //Turns false when the game ends
+
+    /**
+     * accessor for gameActive
+     * @return if the game is active as boolean
+     */
+    public boolean isGameAcive() {
+        return gameAcive;
+    }
 
     /**
      * Constructor method
@@ -21,6 +29,8 @@ public class Board {
         //sets turn to Player one
         turn = 1;
         gameAcive = true;
+
+        calculateScore();
     }
 
     /**
@@ -325,13 +335,9 @@ public class Board {
     }
 
     /**
-     * This method has to be run at the end of a players turn
-     * It's jon is to
-     * - Calculate the player's score
-     * - Switch tunr to the next player
-     * - check if the next player has a valid move
+     * Calculated and updates the score for each player
      */
-    public void endTurn() {
+    public void calculateScore(){
         int player1Score = 0;
         int player2Score = 0;
         //Get the total counter count/score for each player
@@ -346,6 +352,17 @@ public class Board {
         }
         player1.setScore(player1Score);
         player2.setScore(player2Score);
+    }
+
+    /**
+     * This method has to be run at the end of a players turn
+     * It's jon is to
+     * - Calculate the player's score
+     * - Switch tunr to the next player
+     * - check if the next player has a valid move
+     */
+    public void endTurn() {
+        calculateScore();
         // The following checks if the next player has any valid mmoves and then switches to the if it's their turn.
         ArrayList<String> player2Moves = validMoves(2);
         ArrayList<String> player1Moves = validMoves(1);
@@ -353,17 +370,51 @@ public class Board {
             //If there is no valid moves then the game ends
             gameAcive = false;
         } else if (turn == 1){
+            player1.incrementMoves();
             if (player2Moves.isEmpty() == false){
                 turn = 2;
             }else {
                 turn = 1;
             }
         } else if (turn == 2){
+            player2.incrementMoves();
             if (player1Moves.isEmpty() == false){
                 turn = 1;
             }else {
                 turn = 2;
             }
+        }
+    }
+
+    public boolean runTurn(String move){
+        ArrayList<String> validMoves = validMoves(turn);
+        int column = -1;
+        String[] splitMove = move.split("");
+        if (splitMove[0].equals("A")){
+            column = 0;
+        } else if (splitMove[0].equals("B")){
+            column = 1;
+        } else if (splitMove[0].equals("C")){
+            column = 2;
+        } else if (splitMove[0].equals("D")){
+            column = 3;
+        } else if (splitMove[0].equals("E")){
+            column = 4;
+        } else if (splitMove[0].equals("F")){
+            column = 5;
+        } else if (splitMove[0].equals("G")){
+            column = 6;
+        } else if (splitMove[0].equals("H")){
+            column = 7;
+        }
+        String testMove = (splitMove[1] + Integer.toString(column));
+        if (validMoves.contains(testMove)){
+            grid[Integer.parseInt(splitMove[1])][column] = turn;
+            //flipcounters method here!!
+            endTurn();
+            return true;
+        }else{
+            return false;
         }
     }
 
