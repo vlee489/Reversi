@@ -1,7 +1,62 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
+import com.google.common.base.Charsets;
+import com.google.gson.*;
+import com.google.common.io.*;
+
 public class Game {
-    private Board board = new Board();
+    private Board board;
+
+    /**
+     * used to create a brand new game
+     */
+    public void newGame(){
+         board = new Board();
+    }
+
+    /**
+     * Used to load in an existing game
+     * @param file the game file
+     */
+    public void loadGame(String file){
+        try{
+            File input = new File(file);
+            String json = Files.toString(input, Charsets.UTF_8);
+            Gson gson = new Gson();
+            board = gson.fromJson(json, Board.class);
+            System.out.println("Load Successful");
+            System.out.println("Beginning Game");
+        }
+        catch (IOException e){
+            System.out.println("Unable to load game!");
+            System.exit(1);
+        }
+    }
+
+    /**
+     * This saves the game to "save.json", to where the Java binary is.
+     */
+    public void save(){
+        Gson gson = new Gson();
+        String json = gson.toJson(board);
+        try{
+            File save = new File("save.json");
+            //Used to clear file
+            PrintWriter writer = new PrintWriter(save);
+            writer.print("");
+            writer.close();
+            //Write game Save
+            Files.write(json, save, Charsets.UTF_8);
+            System.out.println("Game Saved!");
+            System.out.println("Quiting Program");
+            System.exit(0);
+        } catch (IOException e){
+            System.out.println("Unable to save game!");
+        }
+    }
 
     /**
      * Displays the game board
@@ -9,7 +64,7 @@ public class Game {
     public void displayBoard(){
         int[][] arrayTemp = board.getGrid();
         String linePrint;
-        System.out.println("   0  1  2  3  4  5  6  7");
+        //System.out.println("   0  1  2  3  4  5  6  7");
         System.out.println("   A  B  C  D  E  F  G  H");
         for (int i = 0; i < arrayTemp.length; i++){
             linePrint = i + "  ";
@@ -26,6 +81,9 @@ public class Game {
         }
     }
 
+    /**
+     * Show moves available to the players
+     */
     public void checkMoves(){
         System.out.println("Player 1 valid moves: " + board.validMoves(1));
         System.out.println("Player 2 valid moves: " + board.validMoves(2));
@@ -39,6 +97,9 @@ public class Game {
         System.out.println("Player 2 (0) score:  " + board.player2.getScore());
     }
 
+    /**
+     * Runs the CMD version of the game
+     */
     public void play(){
         while (board.isGameAcive()){
             displayScore();
@@ -47,13 +108,17 @@ public class Game {
             Scanner ss = new Scanner(System.in);
             System.out.println("May player " + board.getTurn() + " enter their move: ");
             String move = ss.nextLine();
-            boolean valid;
-            valid = board.runTurn(move);
-            while(!valid){
-                Scanner s = new Scanner(System.in);
-                System.out.println("Player " + board.getTurn() + "Invalid Move, please enter valid move:");
-                move = s.nextLine();
+            if (move.equals("SAVE")){
+                save();
+            }else{
+                boolean valid;
                 valid = board.runTurn(move);
+                while(!valid){
+                    Scanner s = new Scanner(System.in);
+                    System.out.println("Player " + board.getTurn() + "Invalid Move, please enter valid move:");
+                    move = s.nextLine();
+                    valid = board.runTurn(move);
+                }
             }
         }
         if (!board.isGameAcive()){

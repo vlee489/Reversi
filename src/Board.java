@@ -439,8 +439,11 @@ public class Board {
         } else {
             return false; //it returns a false when an invalid option if given
         }
+        // following checks if the 2nd item given is a number
+        if (splitMove[1].chars().allMatch(Character::isLetter)){
+            return false;
         //Following if statement is to check if the row number given if within range of grid.
-        if (Integer.parseInt(splitMove[1]) > 8 || Integer.parseInt(splitMove[1]) < 0) {
+        } else if (Integer.parseInt(splitMove[1]) > 8 || Integer.parseInt(splitMove[1]) < 0) {
             return false;
         }
         String testMove = (splitMove[1] + Integer.toString(column));
@@ -454,6 +457,12 @@ public class Board {
         }
     }
 
+    /**
+     * Flips the counter for the selected counter
+     * @param player Which player you want to flip for
+     * @param X The column of the counter from which you want to flip from
+     * @param Y The row of the counter from which you want to flip from
+     */
     public void flipCounters(int player, int X, int Y) {
         int totalOwn = 0;
         int testRow;
