@@ -420,21 +420,21 @@ public class Board {
         ArrayList<String> validMoves = validMoves(turn);
         int column = -1;
         String[] splitMove = move.split("");
-        if (splitMove[0].equals("A") || splitMove[0].equals("a")) {
+        if (splitMove[0].equals("A") || splitMove[0].equals("a") || splitMove[0].equals("0")) {
             column = 0;
-        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")) {
+        } else if (splitMove[0].equals("B") || splitMove[0].equals("b") || splitMove[0].equals("1")) {
             column = 1;
-        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")) {
+        } else if (splitMove[0].equals("C") || splitMove[0].equals("c") || splitMove[0].equals("2")) {
             column = 2;
-        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")) {
+        } else if (splitMove[0].equals("D") || splitMove[0].equals("d") || splitMove[0].equals("3")) {
             column = 3;
-        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")) {
+        } else if (splitMove[0].equals("E") || splitMove[0].equals("e") || splitMove[0].equals("4")) {
             column = 4;
-        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")) {
+        } else if (splitMove[0].equals("F") || splitMove[0].equals("f") || splitMove[0].equals("5")) {
             column = 5;
-        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")) {
+        } else if (splitMove[0].equals("G") || splitMove[0].equals("g") || splitMove[0].equals("6")) {
             column = 6;
-        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")) {
+        } else if (splitMove[0].equals("H") || splitMove[0].equals("h") || splitMove[0].equals("7")) {
             column = 7;
         } else {
             return false; //it returns a false when an invalid option if given
