@@ -85,7 +85,7 @@ public class Board {
             opponent = 1;
         } else {
             System.out.println("ERROR IN SELECTED PLAYER!");
-            System.exit(1);
+            System.exit(2);
         }
         for (int row = 0; row < grid.length; row++) {
             for (int column = 0; column < grid[row].length; column++) {
@@ -413,7 +413,7 @@ public class Board {
     /**
      * Allows for moves to be made on the board.
      *
-     * @param move the move being made by the player
+     * @param move the move being made by the player (e.g. A1)
      * @return if the move was valid returns True, else returns false
      */
     public boolean runTurn(String move) {

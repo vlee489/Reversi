@@ -39,11 +39,11 @@ public class Game {
     /**
      * This saves the game to "save.json", to where the Java binary is.
      */
-    public void save(){
+    public void save(String file){
         Gson gson = new Gson();
         String json = gson.toJson(board);
         try{
-            File save = new File("save.json");
+            File save = new File(file);
             //Used to clear file
             PrintWriter writer = new PrintWriter(save);
             writer.print("");
@@ -101,6 +101,11 @@ public class Game {
      * Runs the CMD version of the game
      */
     public void play(){
+        if (board == null){
+            System.out.println("No board object made!");
+            System.out.println("You must either use newGame() or loadGame(file) first!");
+            System.exit(3);
+        }
         while (board.isGameAcive()){
             displayScore();
             displayBoard();
@@ -109,7 +114,11 @@ public class Game {
             System.out.println("May player " + board.getTurn() + " enter their move: ");
             String move = ss.nextLine();
             if (move.equals("SAVE")){
-                save();
+                Scanner s = new Scanner(System.in);
+                System.out.println("Enter the name of the save game");
+                String file = s.nextLine();
+                file = (file + ".json");
+                save(file);
             }else{
                 boolean valid;
                 valid = board.runTurn(move);
