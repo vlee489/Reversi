@@ -2,19 +2,51 @@ import java.util.ArrayList;
 
 public class Board {
     private int[][] grid = new int[8][8]; //Saves Array
-    public Player player1 = new Player(); //Creates player 1
-    public Player player2 = new Player(); //Creates player 2
+    private Player player1 = new Player(); //Creates player 1
+    private Player player2 = new Player(); //Creates player 2
     private int turn; //Stores whos turn it is.
     private int turnsTaken = 0; //the number of turns taken in total
-    private boolean gameAcive; //Turns false when the game ends
+    private boolean gameActive; //Turns false when the game ends
+    private boolean AI; //used to indicate if the game is AI or not
 
     /**
      * accessor for gameActive
      *
      * @return if the game is active as boolean
      */
-    public boolean isGameAcive() {
-        return gameAcive;
+    public boolean isGameActive() {
+        return gameActive;
+    }
+
+    /**
+     * returns score of selected player
+     * @param player player 1 or 2
+     * @return the score of that player
+     */
+    public int score(int player){
+        if (player == 1){
+            return player1.getScore();
+        } else if (player == 2){
+            return player2.getScore();
+        }else{
+            return 0;
+        }
+    }
+
+    /**
+     * see if the game is an AI game or not
+     * @return true if game is against AI, else returns false
+     */
+    public boolean isAI() {
+        return AI;
+    }
+
+    /**
+     * sets if the game is an AI game or not
+     * @param AI true for if the game is an AI else, false
+     */
+    public void setAI(boolean AI) {
+        this.AI = AI;
     }
 
     /**
@@ -29,7 +61,7 @@ public class Board {
         grid[3][4] = 2;
         //sets turn to Player one
         turn = 1;
-        gameAcive = true;
+        gameActive = true;
 
         calculateScore();
     }
@@ -392,7 +424,7 @@ public class Board {
         ArrayList<String> player1Moves = validMoves(1);
         if (player1Moves.isEmpty() && player2Moves.isEmpty()) {
             //If there is no valid moves then the game ends
-            gameAcive = false;
+            gameActive = false;
         } else if (turn == 1) {
             player1.incrementMoves();
             if (!player2Moves.isEmpty()) {
@@ -464,7 +496,6 @@ public class Board {
      * @param Y The row of the counter from which you want to flip from
      */
     public void flipCounters(int player, int X, int Y) {
-        int totalOwn = 0;
         int testRow;
         int testColumn;
         int flipRow;

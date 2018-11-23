@@ -83,6 +83,7 @@ public class Game {
 
     /**
      * Show moves available to the players
+     * Used for Debugging
      */
     public void checkMoves(){
         System.out.println("Player 1 valid moves: " + board.validMoves(1));
@@ -93,8 +94,8 @@ public class Game {
      * Displays the score of each player
      */
     public void displayScore(){
-        System.out.println("Player 1 (#) score:  " + board.player1.getScore());
-        System.out.println("Player 2 (0) score:  " + board.player2.getScore());
+        System.out.println("Player 1 (#) score:  " + board.score(1));
+        System.out.println("Player 2 (0) score:  " + board.score(2));
     }
 
     /**
@@ -106,20 +107,25 @@ public class Game {
             System.out.println("You must either use newGame() or loadGame(file) first!");
             System.exit(3);
         }
-        while (board.isGameAcive()){
+        while (board.isGameActive()){
+            System.out.println("=======================================");
             displayScore();
             displayBoard();
             checkMoves();
             Scanner ss = new Scanner(System.in);
-            System.out.println("May player " + board.getTurn() + " enter their move: ");
+            System.out.println("May player " + board.getTurn() + " enter their move (E.G A7): ");
             String move = ss.nextLine();
-            if (move.equals("SAVE")){
+            if (move.equals("SAVE") || move.equals("save")){
                 Scanner s = new Scanner(System.in);
                 System.out.println("Enter the name of the save game");
                 String file = s.nextLine();
                 file = (file + ".json");
                 save(file);
-            }else{
+            }else if (move.equals("EXIT") || move.equals("exit")){
+                System.out.println("Exiting Game");
+                break;
+            }
+            else{
                 boolean valid;
                 valid = board.runTurn(move);
                 while(!valid){
@@ -130,7 +136,8 @@ public class Game {
                 }
             }
         }
-        if (!board.isGameAcive()){
+        if (!board.isGameActive()){
+            System.out.println("=======================================");
             displayBoard();
             System.out.println("Game is over!");
             System.out.println("Final Score is:");
