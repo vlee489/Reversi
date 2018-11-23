@@ -22,5 +22,9 @@ public class Player {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public void incrementMoves(){
+        numOfMoves++;
+    }
 }
 
