@@ -7,10 +7,11 @@ public class Menu {
      * Display available menu options
      */
     private void options(){
-        System.out.println("1: Play New Game");
-        System.out.println("2: Load existing game and play");
-        System.out.println("3: View Instructions");
-        System.out.println("4: Exit Application");
+        System.out.println("1: Play 2 Player New Game");
+        System.out.println("2: Play 1 Player New Game");
+        System.out.println("3: Load existing game and play");
+        System.out.println("4: View Instructions");
+        System.out.println("5: Exit Application");
     }
 
     /**
@@ -58,16 +59,19 @@ public class Menu {
                 game.play();
                 break;
             case "2":
+                game.newGame();
+                game.playAI();
+            case "3":
                 System.out.println("Choose the name of your save file");
                 Scanner file = new Scanner(System.in);
                 String fileLoad = file.nextLine();
                 game.loadGame(fileLoad + ".json");
-                game.play();
-                break;
-            case "3":
-                instructions();
+                game.playAuto();
                 break;
             case "4":
+                instructions();
+                break;
+            case "5":
                 System.exit(0);
         }
     }

@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import com.google.common.base.Charsets;
@@ -144,4 +146,80 @@ public class Game {
             displayScore();
         }
     }
+
+    /**
+     * Runs a game against the AI
+     */
+    public void playAI(){
+        board.setAI(true);
+        if (board == null){
+            System.out.println("No board object made!");
+            System.out.println("You must either use newGame() or loadGame(file) first!");
+            System.exit(3);
+        }
+        while (board.isGameActive()){
+            System.out.println("=======================================");
+            displayScore();
+            displayBoard();
+            checkMoves();
+            boolean validmove;
+            if (board.getTurn() == 2){
+                System.out.println("AI (player 2) making move!");
+                validmove = false;
+                while (!validmove){
+                    ArrayList<String> AIMoves = board.validMoves(2);
+                    Random random = new Random();
+                    int pick = random.nextInt(AIMoves.size() + 1);
+                    String move = AIMoves.get(pick);
+                    //The following gives the board.runMove the correct format
+                    String[] moveSplit = move.split("");
+                    String moveToEnter = (moveSplit[1] + moveSplit[0]);
+                    validmove = board.runTurn(moveToEnter);
+                }
+            }else if (board.getTurn() == 1){
+                Scanner ss = new Scanner(System.in);
+                System.out.println("May player " + board.getTurn() + " enter their move (E.G A7): ");
+                String move = ss.nextLine();
+                if (move.equals("SAVE") || move.equals("save")){
+                    Scanner s = new Scanner(System.in);
+                    System.out.println("Enter the name of the save game");
+                    String file = s.nextLine();
+                    file = (file + ".json");
+                    save(file);
+                }else if (move.equals("EXIT") || move.equals("exit")){
+                    System.out.println("Exiting Game");
+                    break;
+                }
+                else{
+                    boolean valid;
+                    valid = board.runTurn(move);
+                    while(!valid){
+                        Scanner s = new Scanner(System.in);
+                        System.out.println("Player " + board.getTurn() + "Invalid Move, please enter valid move:");
+                        move = s.nextLine();
+                        valid = board.runTurn(move);
+                    }
+                }
+            }
+        }
+        if (!board.isGameActive()){
+            System.out.println("=======================================");
+            displayBoard();
+            System.out.println("Game is over!");
+            System.out.println("Final Score is:");
+            displayScore();
+        }
+    }
+
+    /**
+     * Determines if the game is against a Human or AI and load thr right play function
+     */
+    public void playAuto(){
+        if (board.isAI() == true){
+            playAI();
+        }else if (board.isAI() == false){
+            play();
+        }
+    }
+
 }
