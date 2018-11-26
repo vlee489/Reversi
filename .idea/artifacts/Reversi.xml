@@ -3,8 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Reversi</output-path>
     <root id="archive" name="Reversi.jar">
       <element id="module-output" name="Reversi" />
-      <element id="library" level="project" name="com.google.code.gson:gson:2.8.5" />
-      <element id="library" level="project" name="com.google.guava:guava:18.0" />
     </root>
   </artifact>
 </component>
