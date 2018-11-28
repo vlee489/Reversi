@@ -61,6 +61,7 @@ public class Menu {
             case "2":
                 game.newGame();
                 game.playAI();
+                break;
             case "3":
                 System.out.println("Choose the name of your save file");
                 Scanner file = new Scanner(System.in);

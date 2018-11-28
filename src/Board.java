@@ -5,7 +5,6 @@ public class Board {
     private Player player1 = new Player(); //Creates player 1
     private Player player2 = new Player(); //Creates player 2
     private int turn; //Stores whos turn it is.
-    private int turnsTaken = 0; //the number of turns taken in total
     private boolean gameActive; //Turns false when the game ends
     private boolean AI; //used to indicate if the game is AI or not
 
@@ -417,7 +416,6 @@ public class Board {
      * - check if the next player has a valid move
      */
     public void endTurn() {
-        turnsTaken++;
         calculateScore();
         // The following checks if the next player has any valid moves and then switches to the if it's their turn.
         ArrayList<String> player2Moves = validMoves(2);
