@@ -109,6 +109,7 @@ public class Board {
      */
     public ArrayList<String> validMoves(int player) {
         ArrayList<String> validMoves = new ArrayList<>();
+        //will set the opponents
         int opponent = 0;
         if (player == 1) {
             opponent = 2;
@@ -120,7 +121,7 @@ public class Board {
         }
         for (int row = 0; row < grid.length; row++) {
             for (int column = 0; column < grid[row].length; column++) {
-                int valid = 0;
+                int valid = 0; //the amount of valid directions
                 int testRow;
                 int testColumn;
                 if (grid[row][column] == 0) {
@@ -212,7 +213,7 @@ public class Board {
         int totalOwn = 0;
         int testRow;
         int testColumn;
-        int ownPiece;// This is used to check make sure then is one piece of the oppents piece between their piece and their spot being checked
+        int ownPiece;// This is used to check make sure then is one piece of the opponents piece between their piece and their spot being checked
         //check top left
         testRow = Y - 1;
         testColumn = X - 1;

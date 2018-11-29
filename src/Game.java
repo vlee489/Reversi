@@ -25,10 +25,10 @@ public class Game {
      */
     public void loadGame(String file){
         try{
-            File input = new File(file);
-            String json = Files.toString(input, Charsets.UTF_8);
+            File input = new File(file); //loads file
+            String json = Files.toString(input, Charsets.UTF_8); //in file into one long sting
             Gson gson = new Gson();
-            board = gson.fromJson(json, Board.class);
+            board = gson.fromJson(json, Board.class); //loads in the board class from the json provided
             System.out.println("Load Successful");
             System.out.println("Beginning Game");
         }
@@ -66,10 +66,10 @@ public class Game {
      * Displays the game board
      */
     private void displayBoard(){
-        int[][] arrayTemp = board.getGrid();
+        int[][] arrayTemp = board.getGrid();//gets array
         String linePrint;
-        //System.out.println("   0  1  2  3  4  5  6  7");
         System.out.println("   A  B  C  D  E  F  G  H");
+        //print array out
         for (int i = 0; i < arrayTemp.length; i++){
             linePrint = i + "  ";
             for (int z = 0; z < arrayTemp[i].length; z++){
@@ -97,6 +97,7 @@ public class Game {
      * Runs the CMD version of the game
      */
     public void play(){
+        //checks if the board exists
         if (board == null){
             System.out.println("No board object made!");
             System.out.println("You must either use newGame() or loadGame(file) first!");
@@ -106,9 +107,11 @@ public class Game {
             System.out.println("=======================================");
             displayScore();
             displayBoard();
+            // takes in user's input
             Scanner ss = new Scanner(System.in);
             System.out.println("May player " + board.getTurn() + " enter their move (E.G A7): ");
             String move = ss.nextLine();
+            // if save or exit command is given, we we runs the appropriate functions
             if (move.equals("SAVE") || move.equals("save")){
                 Scanner s = new Scanner(System.in);
                 System.out.println("Enter the name of the save game");
@@ -120,17 +123,16 @@ public class Game {
                 break;
             }
             else{
-                boolean valid;
-                valid = board.runTurn(move);
-                while(!valid){
+                boolean valid = board.runTurn(move);//runs move
+                while(!valid){//if the moves comes back as invalid it askes for the another input
                     Scanner s = new Scanner(System.in);
-                    System.out.println("Player " + board.getTurn() + "Invalid Move, please enter valid move:");
+                    System.out.println("Player " + board.getTurn() + " Invalid Move, please enter valid move:");
                     move = s.nextLine();
                     valid = board.runTurn(move);
                 }
             }
         }
-        if (!board.isGameActive()){
+        if (!board.isGameActive()){ //when game ends
             System.out.println("=======================================");
             displayBoard();
             System.out.println("Game is over!");
@@ -154,23 +156,27 @@ public class Game {
             displayScore();
             displayBoard();
             boolean validmove;
+            //if player 2 AKA AI is playing
             if (board.getTurn() == 2){
                 System.out.println("AI (player 2) making move!");
                 validmove = false;
                 while (!validmove){
-                    ArrayList<String> AIMoves = board.validMoves(2);
-                    Random random = new Random();
-                    int pick = random.nextInt(AIMoves.size() + 1);
-                    String move = AIMoves.get(pick);
+                    ArrayList<String> AIMoves = board.validMoves(2); //get the list of move the AI can make
+                    Random random = new Random();// makes a random object
+                    int pick = random.nextInt(AIMoves.size()); //picks an item from list
+                    String move = AIMoves.get(pick); //actually retreaves
                     //The following gives the board.runMove the correct format
                     String[] moveSplit = move.split("");
                     String moveToEnter = (moveSplit[1] + moveSplit[0]);
                     validmove = board.runTurn(moveToEnter);
                 }
+                //when it's player 1's tune
             }else if (board.getTurn() == 1){
+                //take in user input
                 Scanner ss = new Scanner(System.in);
                 System.out.println("May player " + board.getTurn() + " enter their move (E.G A7): ");
                 String move = ss.nextLine();
+                // if save or exit command is given, we we runs the appropriate functions
                 if (move.equals("SAVE") || move.equals("save")){
                     Scanner s = new Scanner(System.in);
                     System.out.println("Enter the name of the save game");
@@ -183,8 +189,8 @@ public class Game {
                 }
                 else{
                     boolean valid;
-                    valid = board.runTurn(move);
-                    while(!valid){
+                    valid = board.runTurn(move);//runs move
+                    while(!valid){//if the moves comes back as invalid it askes for the another input
                         Scanner s = new Scanner(System.in);
                         System.out.println("Player " + board.getTurn() + "Invalid Move, please enter valid move:");
                         move = s.nextLine();
