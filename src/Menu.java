@@ -77,6 +77,10 @@ public class Menu {
         }
     }
 
+    /**
+     * default main method
+     * @param args main string
+     */
     public static void main(String[] args){
         Menu menu = new Menu();
         while (true){

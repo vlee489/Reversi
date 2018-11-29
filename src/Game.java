@@ -40,8 +40,10 @@ public class Game {
 
     /**
      * This saves the game to "save.json", to where the Java binary is.
+     *
+     * @param file The name of the file
      */
-    public void save(String file){
+    private void save(String file){
         Gson gson = new Gson();
         String json = gson.toJson(board);
         try{
@@ -84,15 +86,6 @@ public class Game {
     }
 
     /**
-     * Show moves available to the players
-     * Used for Debugging
-     */
-    public void checkMoves(){
-        System.out.println("Player 1 valid moves: " + board.validMoves(1));
-        System.out.println("Player 2 valid moves: " + board.validMoves(2));
-    }
-
-    /**
      * Displays the score of each player
      */
     public void displayScore(){
@@ -113,7 +106,6 @@ public class Game {
             System.out.println("=======================================");
             displayScore();
             displayBoard();
-            checkMoves();
             Scanner ss = new Scanner(System.in);
             System.out.println("May player " + board.getTurn() + " enter their move (E.G A7): ");
             String move = ss.nextLine();
@@ -161,7 +153,6 @@ public class Game {
             System.out.println("=======================================");
             displayScore();
             displayBoard();
-            checkMoves();
             boolean validmove;
             if (board.getTurn() == 2){
                 System.out.println("AI (player 2) making move!");
