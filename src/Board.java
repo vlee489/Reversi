@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Board {
-    private int[][] grid = new int[8][8]; //Saves Array
+    private int[][] grid = new int[8][8]; //Creates Array
     private Player player1 = new Player(); //Creates player 1
     private Player player2 = new Player(); //Creates player 2
-    private int turn; //Stores whos turn it is.
+    private int turn; //Stores whoms turn it is.
     private boolean gameActive; //Turns false when the game ends
     private boolean AI; //used to indicate if the game is AI or not
 
@@ -190,7 +190,7 @@ public class Board {
                     }
                     //If there are valid square found, then increment by one
                     if (valid > 0) {
-                        if (ownValid(player, column, row) == true) {
+                        if (countersToFlip(player, column, row) == true) {
                             validMoves.add(Integer.toString(row) + Integer.toString(column));
                         }
                     }
@@ -208,7 +208,7 @@ public class Board {
      * @param Y      The Row of the spot being checked on the grid
      * @return True/False of if the the square has any counters to flip
      */
-    private boolean ownValid(int player, int X, int Y) {
+    private boolean countersToFlip(int player, int X, int Y) {
         int totalOwn = 0;
         int testRow;
         int testColumn;
@@ -355,43 +355,9 @@ public class Board {
     }
 
     /**
-     * Force add a piece to the board
-     *
-     * @param move   position to place piece on to
-     * @param player either player 1 or 2
-     */
-    public void forceMove(String move, int player) {
-        int column = -1;
-        String[] splitMove = move.split("");
-        if (splitMove[0].equals("A") || splitMove[0].equals("a")) {
-            column = 0;
-        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")) {
-            column = 1;
-        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")) {
-            column = 2;
-        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")) {
-            column = 3;
-        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")) {
-            column = 4;
-        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")) {
-            column = 5;
-        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")) {
-            column = 6;
-        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")) {
-            column = 7;
-        }
-        if (column < 0 || player < 0 || player > 2) {
-            System.out.println("Unable to add piece");
-        } else {
-            int row = Integer.parseInt(splitMove[1]);
-            grid[row][column] = player;
-        }
-    }
-
-    /**
      * Calculated and updates the score for each player
      */
-    public void calculateScore() {
+    private void calculateScore() {
         int player1Score = 0;
         int player2Score = 0;
         //Get the total counter count/score for each player
@@ -415,7 +381,7 @@ public class Board {
      * - Switch turn to the next player
      * - check if the next player has a valid move
      */
-    public void endTurn() {
+    private void endTurn() {
         calculateScore();
         // The following checks if the next player has any valid moves and then switches to the if it's their turn.
         ArrayList<String> player2Moves = validMoves(2);
@@ -493,12 +459,12 @@ public class Board {
      * @param X The column of the counter from which you want to flip from
      * @param Y The row of the counter from which you want to flip from
      */
-    public void flipCounters(int player, int X, int Y) {
+    private void flipCounters(int player, int X, int Y) {
         int testRow;
         int testColumn;
         int flipRow;
         int flipColumn;
-        int ownPiece;// This is used to check make sure then is one piece of the oppents piece between their piece and their spot being checked
+        int ownPiece;// This is used to check make sure then is one piece of the opponents piece between their piece and their spot being checked
         //check top left
         testRow = Y - 1;
         testColumn = X - 1;

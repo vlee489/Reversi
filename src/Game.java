@@ -65,7 +65,7 @@ public class Game {
     /**
      * Displays the game board
      */
-    public void displayBoard(){
+    private void displayBoard(){
         int[][] arrayTemp = board.getGrid();
         String linePrint;
         //System.out.println("   0  1  2  3  4  5  6  7");
@@ -88,7 +88,7 @@ public class Game {
     /**
      * Displays the score of each player
      */
-    public void displayScore(){
+    private void displayScore(){
         System.out.println("Player 1 (#) score:  " + board.score(1));
         System.out.println("Player 2 (0) score:  " + board.score(2));
     }
