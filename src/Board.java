@@ -1,5 +1,13 @@
 import java.util.ArrayList;
 
+/**
+ * This class stored the main board and stores the validation and flipping methods
+ * to properly run this game.
+ *
+ * @author Pui-Hin Vincent Lee
+ * @version 1.0
+ */
+
 public class Board {
     private int[][] grid = new int[8][8]; //Creates Array
     private Player player1 = new Player(); //Creates player 1
@@ -7,6 +15,23 @@ public class Board {
     private int turn; //Stores whoms turn it is.
     private boolean gameActive; //Turns false when the game ends
     private boolean AI; //used to indicate if the game is AI or not
+
+    /**
+     * Constructor method
+     */
+    public Board() {
+        //sets Player ones initial counters
+        grid[3][3] = 1;
+        grid[4][4] = 1;
+        //sets Player two initial counters
+        grid[4][3] = 2;
+        grid[3][4] = 2;
+        //sets turn to Player one
+        turn = 1;
+        gameActive = true;
+
+        calculateScore();
+    }
 
     /**
      * accessor for gameActive
@@ -46,23 +71,6 @@ public class Board {
      */
     public void setAI(boolean AI) {
         this.AI = AI;
-    }
-
-    /**
-     * Constructor method
-     */
-    public Board() {
-        //sets Player ones initial counters
-        grid[3][3] = 1;
-        grid[4][4] = 1;
-        //sets Player two initial counters
-        grid[4][3] = 2;
-        grid[3][4] = 2;
-        //sets turn to Player one
-        turn = 1;
-        gameActive = true;
-
-        calculateScore();
     }
 
     /**

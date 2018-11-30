@@ -1,3 +1,10 @@
+/**
+ * This class stores the field for each player such s score.
+ *
+ * @author Pui-Hin Vincent Lee
+ * @version 1.0
+ */
+
 public class Player {
     private int score;
     private int numOfMoves;

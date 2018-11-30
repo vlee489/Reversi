@@ -9,6 +9,14 @@ import com.google.common.base.Charsets;
 import com.google.gson.*;
 import com.google.common.io.*;
 
+/**
+ * This class takes in user inputs and displays the score as well
+ * as creating saves of the board class and loading in saves into the board class
+ *
+ * @author Pui-Hin Vincent Lee
+ * @version 1.0
+ */
+
 public class Game {
     private Board board;
 

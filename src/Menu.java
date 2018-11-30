@@ -1,5 +1,12 @@
 import java.util.Scanner;
 
+/**
+ * Displays the menu and options available as well as the help options.
+ *
+ * @author Pui-Hin Vincent Lee
+ * @version 1.0
+ */
+
 public class Menu {
     private Game game = new Game();
 
