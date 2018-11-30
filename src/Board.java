@@ -191,7 +191,7 @@ public class Board {
                     }
                     //If there are valid square found, then increment by one
                     if (valid > 0) {
-                        if (countersToFlip(player, column, row) == true) {
+                        if (countersToFlip(player, column, row)) {
                             validMoves.add(Integer.toString(row) + Integer.toString(column));
                         }
                     }
@@ -415,7 +415,7 @@ public class Board {
      */
     public boolean runTurn(String move) {
         ArrayList<String> validMoves = validMoves(turn);
-        int column = -1;
+        int column;
         String[] splitMove = move.split("");
         if (splitMove[0].equals("A") || splitMove[0].equals("a") || splitMove[0].equals("0")) {
             column = 0;
