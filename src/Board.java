@@ -1,13 +1,37 @@
 import java.util.ArrayList;
 
+/**
+ * This class stored the main board and stores the validation and flipping methods
+ * to properly run this game.
+ *
+ * @author Pui-Hin Vincent Lee
+ * @version 1.0
+ */
+
 public class Board {
-    private int[][] grid = new int[8][8]; //Saves Array
+    private int[][] grid = new int[8][8]; //Creates Array
     private Player player1 = new Player(); //Creates player 1
     private Player player2 = new Player(); //Creates player 2
-    private int turn; //Stores whos turn it is.
-    private int turnsTaken = 0; //the number of turns taken in total
+    private int turn; //Stores whom turn it is.
     private boolean gameActive; //Turns false when the game ends
     private boolean AI; //used to indicate if the game is AI or not
+
+    /**
+     * Constructor method
+     */
+    public Board() {
+        //sets Player ones initial counters
+        grid[3][3] = 1;
+        grid[4][4] = 1;
+        //sets Player two initial counters
+        grid[4][3] = 2;
+        grid[3][4] = 2;
+        //sets turn to Player one
+        turn = 1;
+        gameActive = true;
+
+        calculateScore();
+    }
 
     /**
      * accessor for gameActive
@@ -47,23 +71,6 @@ public class Board {
      */
     public void setAI(boolean AI) {
         this.AI = AI;
-    }
-
-    /**
-     * Constructor method
-     */
-    public Board() {
-        //sets Player ones initial counters
-        grid[3][3] = 1;
-        grid[4][4] = 1;
-        //sets Player two initial counters
-        grid[4][3] = 2;
-        grid[3][4] = 2;
-        //sets turn to Player one
-        turn = 1;
-        gameActive = true;
-
-        calculateScore();
     }
 
     /**
@@ -109,7 +116,8 @@ public class Board {
      * @return An ArrayList of Strings of what moves are valid
      */
     public ArrayList<String> validMoves(int player) {
-        ArrayList<String> validMoves = new ArrayList<>();
+        ArrayList<String> validMoves = new ArrayList<>(); //makes an arraylist to store the valid moves
+        //will set the opponents
         int opponent = 0;
         if (player == 1) {
             opponent = 2;
@@ -121,16 +129,16 @@ public class Board {
         }
         for (int row = 0; row < grid.length; row++) {
             for (int column = 0; column < grid[row].length; column++) {
-                int valid = 0;
+                int valid = 0; //the amount of valid directions
                 int testRow;
                 int testColumn;
                 if (grid[row][column] == 0) {
                     //check top left
                     testRow = row - 1;
                     testColumn = column - 1;
-                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
-                        if (grid[testRow][testColumn] == opponent) {
-                            valid++;
+                    if (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) { //checks if it within the grid
+                        if (grid[testRow][testColumn] == opponent) { //if the piece beside is an opponent's
+                            valid++; //increments valid by one
                         }
                     }
                     //Check top right
@@ -190,9 +198,9 @@ public class Board {
                         }
                     }
                     //If there are valid square found, then increment by one
-                    if (valid > 0) {
-                        if (ownValid(player, column, row) == true) {
-                            validMoves.add(Integer.toString(row) + Integer.toString(column));
+                    if (valid > 0) { //if valid is more then one, checks if counterToFlip is returns true saying there are counters to flip at the location
+                        if (countersToFlip(player, column, row)) {
+                            validMoves.add(Integer.toString(row) + Integer.toString(column));//then adds the counter to the list if it a valid move.
                         }
                     }
                 }
@@ -209,22 +217,22 @@ public class Board {
      * @param Y      The Row of the spot being checked on the grid
      * @return True/False of if the the square has any counters to flip
      */
-    private boolean ownValid(int player, int X, int Y) {
+    private boolean countersToFlip(int player, int X, int Y) {
         int totalOwn = 0;
         int testRow;
         int testColumn;
-        int ownPiece;// This is used to check make sure then is one piece of the oppents piece between their piece and their spot being checked
+        int ownPiece;// This is used to check make sure then is one piece of the opponents piece between their piece and their spot being checked
         //check top left
         testRow = Y - 1;
         testColumn = X - 1;
         ownPiece = 0;
-        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
+        while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) { //while within bounds of the array
             if (grid[testRow][testColumn] == 0) {
-                break;
+                break; //if it finds an empty space when checking it quits
             } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
-                break;
+                break; //if it find it's own piece the the first spot checked it quits
             } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
-                totalOwn++;
+                totalOwn++; //if it finds
                 break;
             }
             testRow--;
@@ -346,53 +354,19 @@ public class Board {
             testColumn++;
             ownPiece++;
         }
-        if (totalOwn > 0) {
+        if (totalOwn > 0) { //if more then one counter can be flipped it then returns true
             return true;
-        } else if (totalOwn == 0) {
+        } else if (totalOwn == 0) { //otherwise returns false.
             return false;
         } else {
             return false;
-        }
-    }
-
-    /**
-     * Force add a piece to the board
-     *
-     * @param move   position to place piece on to
-     * @param player either player 1 or 2
-     */
-    public void forceMove(String move, int player) {
-        int column = -1;
-        String[] splitMove = move.split("");
-        if (splitMove[0].equals("A") || splitMove[0].equals("a")) {
-            column = 0;
-        } else if (splitMove[0].equals("B") || splitMove[0].equals("b")) {
-            column = 1;
-        } else if (splitMove[0].equals("C") || splitMove[0].equals("c")) {
-            column = 2;
-        } else if (splitMove[0].equals("D") || splitMove[0].equals("d")) {
-            column = 3;
-        } else if (splitMove[0].equals("E") || splitMove[0].equals("e")) {
-            column = 4;
-        } else if (splitMove[0].equals("F") || splitMove[0].equals("f")) {
-            column = 5;
-        } else if (splitMove[0].equals("G") || splitMove[0].equals("g")) {
-            column = 6;
-        } else if (splitMove[0].equals("H") || splitMove[0].equals("h")) {
-            column = 7;
-        }
-        if (column < 0 || player < 0 || player > 2) {
-            System.out.println("Unable to add piece");
-        } else {
-            int row = Integer.parseInt(splitMove[1]);
-            grid[row][column] = player;
         }
     }
 
     /**
      * Calculated and updates the score for each player
      */
-    public void calculateScore() {
+    private void calculateScore() {
         int player1Score = 0;
         int player2Score = 0;
         //Get the total counter count/score for each player
@@ -416,8 +390,7 @@ public class Board {
      * - Switch turn to the next player
      * - check if the next player has a valid move
      */
-    public void endTurn() {
-        turnsTaken++;
+    private void endTurn() {
         calculateScore();
         // The following checks if the next player has any valid moves and then switches to the if it's their turn.
         ArrayList<String> player2Moves = validMoves(2);
@@ -425,19 +398,19 @@ public class Board {
         if (player1Moves.isEmpty() && player2Moves.isEmpty()) {
             //If there is no valid moves then the game ends
             gameActive = false;
-        } else if (turn == 1) {
-            player1.incrementMoves();
-            if (!player2Moves.isEmpty()) {
-                turn = 2;
+        } else if (turn == 1) { //if it was players one turn
+            player1.incrementMoves(); //increments their turn counter
+            if (!player2Moves.isEmpty()) { //checks players 2 has any valid moves to make
+                turn = 2; //if they do, then switches over over to them.
             } else {
-                turn = 1;
+                turn = 1; //else keeps it on player 1,
             }
-        } else if (turn == 2) {
-            player2.incrementMoves();
-            if (!player1Moves.isEmpty()) {
-                turn = 1;
+        } else if (turn == 2) {//if it was players two turn
+            player2.incrementMoves();//increments their turn counter
+            if (!player1Moves.isEmpty()) {//checks players 1 has any valid moves to make
+                turn = 1;//if they do, then switches over over to them.
             } else {
-                turn = 2;
+                turn = 2;//else keeps it on player 2,
             }
         }
     }
@@ -450,8 +423,9 @@ public class Board {
      */
     public boolean runTurn(String move) {
         ArrayList<String> validMoves = validMoves(turn);
-        int column = -1;
+        int column;
         String[] splitMove = move.split("");
+        //The following if statement turns the first part of the move passed though and splits it into the X coordinate
         if (splitMove[0].equals("A") || splitMove[0].equals("a") || splitMove[0].equals("0")) {
             column = 0;
         } else if (splitMove[0].equals("B") || splitMove[0].equals("b") || splitMove[0].equals("1")) {
@@ -474,18 +448,18 @@ public class Board {
         // following checks if the 2nd item given is a number
         if (splitMove[1].chars().allMatch(Character::isLetter)){
             return false;
-        //Following if statement is to check if the row number given if within range of grid.
+            //Following if statement is to check if the row number given if within range of grid.
         } else if (Integer.parseInt(splitMove[1]) > 8 || Integer.parseInt(splitMove[1]) < 0) {
             return false;
         }
-        String testMove = (splitMove[1] + Integer.toString(column));
-        if (validMoves.contains(testMove)) {
-            grid[Integer.parseInt(splitMove[1])][column] = turn;
-            flipCounters(turn, column, Integer.parseInt(splitMove[1]));
-            endTurn();
-            return true;
+        String testMove = (splitMove[1] + Integer.toString(column)); //Actually forms the move.
+        if (validMoves.contains(testMove)) { //If the moves is in the list of valid moves
+            grid[Integer.parseInt(splitMove[1])][column] = turn; //place piece down
+            flipCounters(turn, column, Integer.parseInt(splitMove[1])); //flip the counters
+            endTurn(); //runs end turn
+            return true; //return true to say the move was successful
         } else {
-            return false;
+            return false; //returns false if the move given was invalid
         }
     }
 
@@ -495,24 +469,26 @@ public class Board {
      * @param X The column of the counter from which you want to flip from
      * @param Y The row of the counter from which you want to flip from
      */
-    public void flipCounters(int player, int X, int Y) {
+    private void flipCounters(int player, int X, int Y) {
         int testRow;
         int testColumn;
         int flipRow;
         int flipColumn;
-        int ownPiece;// This is used to check make sure then is one piece of the oppents piece between their piece and their spot being checked
+        int ownPiece;// This is used to check make sure then is one piece of the opponents piece between their piece and their spot being checked
         //check top left
         testRow = Y - 1;
         testColumn = X - 1;
         ownPiece = 0;
         while (testColumn >= 0 && testRow >= 0 && testColumn < 8 && testRow < 8) {
-            if (grid[testRow][testColumn] == 0) {
+            if (grid[testRow][testColumn] == 0) { //if there isn't a piece next tested direction  it end this direction
                 break;
             } else if (grid[testRow][testColumn] == player && ownPiece == 0) {
-                break;
-            } else if (grid[testRow][testColumn] == player && ownPiece > 0) {
+                break; //if the piece next to if if their own
+            } else if (grid[testRow][testColumn] == player && ownPiece > 0) { //if it find it's owm piece that isn't right beside it
+                //set the pieces to flip
                 flipRow = Y - 1;
                 flipColumn = X - 1;
+                //if the counter isn't the player,s it then flips it till it hits it's own counter
                 while (grid[flipRow][flipColumn] != player){
                     grid[flipRow][flipColumn] = player;
                     flipRow--;
