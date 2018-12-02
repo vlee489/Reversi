@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ReversiGUI">
+    <output-path>$PROJECT_DIR$/out/artifacts/ReversiGUI</output-path>
+    <root id="archive" name="ReversiGUI.jar">
+      <element id="module-output" name="Reversi" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/guava/guava/18.0/guava-18.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
