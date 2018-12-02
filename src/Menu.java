@@ -73,8 +73,8 @@ public class Menu {
                 System.out.println("Choose the name of your save file");
                 Scanner file = new Scanner(System.in);
                 String fileLoad = file.nextLine();
-                game.loadGame(fileLoad + ".json");
-                game.playAuto();
+                game.loadGame(fileLoad + ".json"); //loads in game file
+                game.playAuto();//play game
                 break;
             case "4":
                 instructions();
